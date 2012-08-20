@@ -1,4 +1,5 @@
 Crapnet-test
 ============
-This is unittests for https://github.com/HeMan/crapnet
+This is unittests for [crapnet][1]
+[1]: https://github.com/HeMan/crapnet
 
