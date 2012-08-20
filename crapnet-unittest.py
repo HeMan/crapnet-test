@@ -3,12 +3,23 @@
 import unittest
 
 from xmlrpclib import ServerProxy, Error
+XMLRPCURL="http://192.168.128.1/cgi-bin/crapnet/wrapper.lua"
+allpresets={'2G': {'latency': 100, 'bandwidth': 3000}, '3G': {'latency': 80, 'bandwidth': 7000}}
+verbose=False
+#verbose=True
+class TestCrapnet(unittest.TestCase):
 
-# server = ServerProxy("http://localhost:8000") # local server
-server = ServerProxy("http://192.168.128.1/cgi-bin/crapnet/wrapper.lua")
-#server = ServerProxy("http://192.168.128.1/cgi-bin/crapnet/do.lua")
-#server = ServerProxy("http://192.168.128.1/cgi-bin/crapnet/cgitest.lua")
+    def setUp(self):
+            self.server = ServerProxy(XMLRPCURL,verbose=verbose)
 
-print server.hello()
+    def test_hello(self):
+        self.assertEqual(self.server.hello(),"Hello world")
 
+    def test_reset(self):
+        self.assertEqual(self.server.reset(),"Reseted")
 
+    def test_getpresets(self):
+            self.assertEqual(self.server.getpresets(),allpresets)
+
+if __name__ == '__main__':
+    unittest.main()
